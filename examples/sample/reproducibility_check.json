@@ -1,0 +1,121 @@
+{
+  "reproducible": true,
+  "profile": "starter",
+  "seed": 20261022,
+  "first_run": {
+    "seed": 20261022,
+    "profile": "starter",
+    "tables": {
+      "CycleCount": {
+        "rows": 500,
+        "sha256": "3db1c596f2d201a412661c509232bbec5ee21c0f9201d9d0d691a969818f5243"
+      },
+      "EmployeeRole": {
+        "rows": 5,
+        "sha256": "cf48691dfd7935caed359659a43a18c5aa5da6a9de066cd5b0921ff8f923b02f"
+      },
+      "ground_truth": {
+        "rows": 1121,
+        "sha256": "e7be68122211a1941d03f5ce4050438f4f1a2d3504bc5899eb4045db4df288a3"
+      },
+      "InventoryMovement": {
+        "rows": 10000,
+        "sha256": "5a0a481ddda8abad53454d7710644dae2966f115ef8dcf3a05686aa8afb8100e"
+      },
+      "Investigation": {
+        "rows": 49,
+        "sha256": "6ff5ba134bd2034337c13f186bb6ab5582363864399058360e77373f1e20ac2e"
+      },
+      "InvestigationEvent": {
+        "rows": 49,
+        "sha256": "d53cfd8f6e05a07905cc7ef94db31a359617a8ae7d14eec41936fa4cd3144855"
+      },
+      "Promotion": {
+        "rows": 5,
+        "sha256": "09247619b76f3b65f628bbecf945e7821c726c1e16c9c0a5f7792cd574da401d"
+      },
+      "Return": {
+        "rows": 411,
+        "sha256": "b3a0cf00933f8b09a2b4af2f4812836705737d121e0d61b4ea5d83c86d58d0da"
+      },
+      "Shift": {
+        "rows": 70,
+        "sha256": "2937780e67c763f4981f4da088253cfc89d779a66597faa47a6376d0f5aff7a3"
+      },
+      "ShrinkageAlert": {
+        "rows": 49,
+        "sha256": "78d63af320b29bd76ce7ef3547cfdea343eb8045e146c753166401158ad8a9b1"
+      },
+      "SKU": {
+        "rows": 100,
+        "sha256": "6c3209243fc98df4aa6a4c9afe85c4a8c9dd9cac89d6485b03762306fa2b1bc5"
+      },
+      "Store": {
+        "rows": 10,
+        "sha256": "7d359385c3e45b06c23e36219360e0d0aeb227fc6c5d4a3f4f28f648592ca77b"
+      },
+      "StoreSKUOpeningBalance": {
+        "rows": 1000,
+        "sha256": "cd5a22570690cb80aaea1e7f36b22dd9ebf2a6e9e793d119086258b17b83d639"
+      }
+    }
+  },
+  "second_run": {
+    "seed": 20261022,
+    "profile": "starter",
+    "tables": {
+      "CycleCount": {
+        "rows": 500,
+        "sha256": "3db1c596f2d201a412661c509232bbec5ee21c0f9201d9d0d691a969818f5243"
+      },
+      "EmployeeRole": {
+        "rows": 5,
+        "sha256": "cf48691dfd7935caed359659a43a18c5aa5da6a9de066cd5b0921ff8f923b02f"
+      },
+      "ground_truth": {
+        "rows": 1121,
+        "sha256": "e7be68122211a1941d03f5ce4050438f4f1a2d3504bc5899eb4045db4df288a3"
+      },
+      "InventoryMovement": {
+        "rows": 10000,
+        "sha256": "5a0a481ddda8abad53454d7710644dae2966f115ef8dcf3a05686aa8afb8100e"
+      },
+      "Investigation": {
+        "rows": 49,
+        "sha256": "6ff5ba134bd2034337c13f186bb6ab5582363864399058360e77373f1e20ac2e"
+      },
+      "InvestigationEvent": {
+        "rows": 49,
+        "sha256": "d53cfd8f6e05a07905cc7ef94db31a359617a8ae7d14eec41936fa4cd3144855"
+      },
+      "Promotion": {
+        "rows": 5,
+        "sha256": "09247619b76f3b65f628bbecf945e7821c726c1e16c9c0a5f7792cd574da401d"
+      },
+      "Return": {
+        "rows": 411,
+        "sha256": "b3a0cf00933f8b09a2b4af2f4812836705737d121e0d61b4ea5d83c86d58d0da"
+      },
+      "Shift": {
+        "rows": 70,
+        "sha256": "2937780e67c763f4981f4da088253cfc89d779a66597faa47a6376d0f5aff7a3"
+      },
+      "ShrinkageAlert": {
+        "rows": 49,
+        "sha256": "78d63af320b29bd76ce7ef3547cfdea343eb8045e146c753166401158ad8a9b1"
+      },
+      "SKU": {
+        "rows": 100,
+        "sha256": "6c3209243fc98df4aa6a4c9afe85c4a8c9dd9cac89d6485b03762306fa2b1bc5"
+      },
+      "Store": {
+        "rows": 10,
+        "sha256": "7d359385c3e45b06c23e36219360e0d0aeb227fc6c5d4a3f4f28f648592ca77b"
+      },
+      "StoreSKUOpeningBalance": {
+        "rows": 1000,
+        "sha256": "cd5a22570690cb80aaea1e7f36b22dd9ebf2a6e9e793d119086258b17b83d639"
+      }
+    }
+  }
+}

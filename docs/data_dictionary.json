@@ -1,0 +1,1199 @@
+{
+  "CycleCount": [
+    {
+      "field": "count_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing CycleCount key; CNT-2026- plus six digits."
+    },
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "count_ts",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 timestamp. Expected stock includes only movements at or before this time."
+    },
+    {
+      "field": "expected_qty",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Integer >= 0; opening plus signed ledger at count_ts."
+    },
+    {
+      "field": "counted_qty",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Integer >= 0; observed physical quantity."
+    },
+    {
+      "field": "variance_qty",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Integer equal to counted_qty minus expected_qty."
+    },
+    {
+      "field": "employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "Existing EmployeeRole primary key; ROLE- plus four digits."
+    },
+    {
+      "field": "reference_movement_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id",
+      "validation": "Required InventoryMovement FK; same store/SKU and timestamp <= count_ts, except declared order anomaly."
+    }
+  ],
+  "EmployeeRole": [
+    {
+      "field": "employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing EmployeeRole primary key; ROLE- plus four digits."
+    },
+    {
+      "field": "employee_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "unique",
+      "foreign_key": null,
+      "validation": "Unique synthetic employee identifier; EMP- plus five digits."
+    },
+    {
+      "field": "role",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "STORE_OPERATOR",
+        "MANAGER",
+        "ANALYST",
+        "WAREHOUSE_OPERATOR"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Permitted role enum; movement and count permissions follow BUSINESS_RULES.md."
+    }
+  ],
+  "ground_truth": [
+    {
+      "field": "record_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id or CycleCount.count_id",
+      "validation": "Existing movement_id or count_id in the evaluation population."
+    },
+    {
+      "field": "issue_type",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Known planted anomaly family or explicit LEGITIMATE_DAMAGE / LEGITIMATE_RETURN."
+    },
+    {
+      "field": "expected_label",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "ANOMALY",
+        "BENIGN"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "ANOMALY or BENIGN; evaluation-only."
+    },
+    {
+      "field": "expected_decision",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Documented expected rule decision; evaluation-only."
+    }
+  ],
+  "InventoryMovement": [
+    {
+      "field": "movement_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing InventoryMovement key; MOV-2026- plus eight digits."
+    },
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "movement_type",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "SALE",
+        "RECEIPT",
+        "RETURN",
+        "DAMAGE",
+        "ADJUSTMENT",
+        "TRANSFER_IN",
+        "TRANSFER_OUT"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Permitted movement enum; direction must agree with signed_qty except declared double-debit injections."
+    },
+    {
+      "field": "quantity",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Positive integer units; absolute signed_qty for movement rows."
+    },
+    {
+      "field": "signed_qty",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonzero signed integer; magnitude equals quantity. Stock at any time uses the signed ledger."
+    },
+    {
+      "field": "movement_ts",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 timestamp within the linked store shift."
+    },
+    {
+      "field": "reason",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for adjustment; damage, receipt, return and transfer have documented reasons; sale may be empty."
+    },
+    {
+      "field": "employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "Existing EmployeeRole primary key; ROLE- plus four digits."
+    },
+    {
+      "field": "shift_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Shift.shift_id",
+      "validation": "Existing Shift primary key; linked store must match movement store."
+    },
+    {
+      "field": "promotion_id",
+      "type": "string",
+      "requirement": "optional",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Promotion.promotion_id",
+      "validation": "Existing Promotion key when provided; movement SKU/date must match its promotion."
+    },
+    {
+      "field": "transfer_id",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for transfer types; groups exactly two reciprocal rows; empty for non-transfers."
+    },
+    {
+      "field": "related_movement_id",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id",
+      "validation": "Required for paired transfers; reciprocal InventoryMovement link; same SKU and different store."
+    }
+  ],
+  "Investigation": [
+    {
+      "field": "investigation_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing Investigation key; INV-2026- plus six digits."
+    },
+    {
+      "field": "alert_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "ShrinkageAlert.alert_id",
+      "validation": "Existing ShrinkageAlert key; SHR-2026- plus six digits."
+    },
+    {
+      "field": "owner_employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "Required EmployeeRole FK with MANAGER role."
+    },
+    {
+      "field": "status",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "OPEN",
+        "IN_PROGRESS",
+        "CLOSED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "OPEN, IN_PROGRESS or CLOSED. CSV alert status is an initial snapshot; live dashboard derives status from its investigation."
+    },
+    {
+      "field": "outcome",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED; empty while active. Live enum: CONFIRMED_LOSS, PROCESS_ERROR, LEGITIMATE_VARIANCE, INCONCLUSIVE."
+    },
+    {
+      "field": "opened_at",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 timestamp equal to the initial creation event."
+    },
+    {
+      "field": "closed_at",
+      "type": "ISO timestamp",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED, >= opened_at and equal to closing event time; otherwise empty."
+    }
+  ],
+  "InvestigationEvent": [
+    {
+      "field": "event_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Unique immutable event identifier; generated CSV uses IEV- plus eight digits."
+    },
+    {
+      "field": "investigation_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Investigation.investigation_id",
+      "validation": "Existing Investigation key; INV-2026- plus six digits."
+    },
+    {
+      "field": "from_status",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": [
+        "",
+        "OPEN",
+        "IN_PROGRESS"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Empty only on creation; otherwise preceding state in the event history."
+    },
+    {
+      "field": "to_status",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "OPEN",
+        "IN_PROGRESS",
+        "CLOSED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "OPEN, IN_PROGRESS or CLOSED; valid generated transitions are creation -> OPEN -> IN_PROGRESS -> CLOSED."
+    },
+    {
+      "field": "event_ts",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid chronological ISO-8601 timestamp; final transition must agree with case snapshot."
+    },
+    {
+      "field": "outcome",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED; empty while active. Live enum: CONFIRMED_LOSS, PROCESS_ERROR, LEGITIMATE_VARIANCE, INCONCLUSIVE."
+    }
+  ],
+  "Promotion": [
+    {
+      "field": "promotion_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing Promotion key when provided; movement SKU/date must match its promotion."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "start_date",
+      "type": "date",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid YYYY-MM-DD date; not after end_date."
+    },
+    {
+      "field": "end_date",
+      "type": "date",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid YYYY-MM-DD date; not before start_date."
+    },
+    {
+      "field": "discount_pct",
+      "type": "decimal",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "percent",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Between 0 and 80 inclusive."
+    }
+  ],
+  "Return": [
+    {
+      "field": "return_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Unique RET-2026- plus six digits."
+    },
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "original_sale_movement_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id",
+      "validation": "Required earlier SALE of the same store/SKU. Cumulative returns cannot exceed sale quantity."
+    },
+    {
+      "field": "movement_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id",
+      "validation": "Existing InventoryMovement key; MOV-2026- plus eight digits."
+    },
+    {
+      "field": "quantity",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Positive integer units; absolute signed_qty for movement rows."
+    },
+    {
+      "field": "condition",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "SELLABLE",
+        "DAMAGED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "SELLABLE or DAMAGED. Current generator produces SELLABLE returns; damage uses separate DAMAGE movements."
+    },
+    {
+      "field": "return_ts",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 timestamp equal to linked RETURN movement timestamp."
+    }
+  ],
+  "Shift": [
+    {
+      "field": "shift_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing Shift primary key; linked store must match movement store."
+    },
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "shift_date",
+      "type": "date",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid YYYY-MM-DD date."
+    },
+    {
+      "field": "start_time",
+      "type": "time",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid HH:MM time; strictly earlier than end_time."
+    },
+    {
+      "field": "end_time",
+      "type": "time",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid HH:MM time; strictly after start_time."
+    },
+    {
+      "field": "shift_name",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "DAY"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "DAY in generated data."
+    }
+  ],
+  "ShrinkageAlert": [
+    {
+      "field": "alert_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing ShrinkageAlert key; SHR-2026- plus six digits."
+    },
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "movement_id",
+      "type": "string",
+      "requirement": "exactly one of movement_id / count_id",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "InventoryMovement.movement_id",
+      "validation": "Existing InventoryMovement key; MOV-2026- plus eight digits."
+    },
+    {
+      "field": "count_id",
+      "type": "string",
+      "requirement": "exactly one of movement_id / count_id",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "CycleCount.count_id",
+      "validation": "Existing CycleCount key; CNT-2026- plus six digits."
+    },
+    {
+      "field": "reason_code",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Evidence-based detector rule code."
+    },
+    {
+      "field": "severity",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "LOW, MEDIUM or HIGH; current detector emits MEDIUM or HIGH by exposure."
+    },
+    {
+      "field": "risk_score",
+      "type": "decimal",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "dimensionless",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Real in [0,1]; ordinal tiers, not calibrated probabilities."
+    },
+    {
+      "field": "status",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "OPEN",
+        "IN_PROGRESS",
+        "CLOSED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "OPEN, IN_PROGRESS or CLOSED. CSV alert status is an initial snapshot; live dashboard derives status from its investigation."
+    },
+    {
+      "field": "created_at",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 source-event timestamp."
+    },
+    {
+      "field": "evidence",
+      "type": "JSON object",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required valid JSON object containing source IDs, conflicting values or thresholds."
+    },
+    {
+      "field": "exposure_inr",
+      "type": "decimal",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "INR",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonnegative affected units multiplied by unit cost, rounded to two decimals; not confirmed loss."
+    }
+  ],
+  "SKU": [
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "sku_name",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonempty synthetic product name."
+    },
+    {
+      "field": "category",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "GROCERY",
+        "HOME",
+        "APPAREL",
+        "ELECTRONICS"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "GROCERY, HOME, APPAREL or ELECTRONICS."
+    },
+    {
+      "field": "unit_cost_inr",
+      "type": "decimal",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "INR",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonnegative acquisition cost, rounded to two decimal places."
+    },
+    {
+      "field": "unit_price_inr",
+      "type": "decimal",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "INR",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonnegative selling price; generated above cost, rounded to two decimal places."
+    },
+    {
+      "field": "active",
+      "type": "boolean",
+      "requirement": "required",
+      "allowed_values": [
+        "True",
+        "False"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "True or False; master records are active in generated snapshots."
+    }
+  ],
+  "Store": [
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "store_name",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonempty synthetic store display name."
+    },
+    {
+      "field": "city",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonempty city; synthetic geography aligned with region."
+    },
+    {
+      "field": "region",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "SOUTH",
+        "WEST",
+        "NORTH"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "SOUTH, WEST or NORTH in this generator."
+    },
+    {
+      "field": "store_type",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "RETAIL",
+        "WAREHOUSE"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "RETAIL or WAREHOUSE."
+    },
+    {
+      "field": "active",
+      "type": "boolean",
+      "requirement": "required",
+      "allowed_values": [
+        "True",
+        "False"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "True or False; master records are active in generated snapshots."
+    }
+  ],
+  "StoreSKUOpeningBalance": [
+    {
+      "field": "store_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "part of composite PK",
+      "foreign_key": "Store.store_id",
+      "validation": "Existing Store primary key; STORE- plus six digits."
+    },
+    {
+      "field": "sku_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "part of composite PK",
+      "foreign_key": "SKU.sku_id",
+      "validation": "Existing SKU primary key; SKU- plus six digits."
+    },
+    {
+      "field": "opening_qty",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "units",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Integer >= 0; initial stock for this unique store/SKU pair."
+    }
+  ],
+  "LiveDataset": [
+    {
+      "field": "dataset_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "SHA-256 of alerts, initial investigations/events and roles; isolates each baseline dataset."
+    }
+  ],
+  "LiveCaseRecord": [
+    {
+      "field": "dataset_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "composite PK with dataset_id",
+      "foreign_key": "LiveDataset.dataset_id",
+      "validation": "SHA-256 of alerts, initial investigations/events and roles; isolates each baseline dataset."
+    },
+    {
+      "field": "investigation_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "composite PK with dataset_id",
+      "foreign_key": "source CSV identifier",
+      "validation": "Existing Investigation key; INV-2026- plus six digits."
+    },
+    {
+      "field": "alert_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "unique within dataset",
+      "foreign_key": "source CSV identifier",
+      "validation": "Existing ShrinkageAlert key; SHR-2026- plus six digits."
+    },
+    {
+      "field": "owner_employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "Required EmployeeRole FK with MANAGER role."
+    },
+    {
+      "field": "status",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "OPEN",
+        "IN_PROGRESS",
+        "CLOSED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "OPEN, IN_PROGRESS or CLOSED. CSV alert status is an initial snapshot; live dashboard derives status from its investigation."
+    },
+    {
+      "field": "outcome",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED; empty while active. Live enum: CONFIRMED_LOSS, PROCESS_ERROR, LEGITIMATE_VARIANCE, INCONCLUSIVE."
+    },
+    {
+      "field": "opened_at",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid ISO-8601 timestamp equal to the initial creation event."
+    },
+    {
+      "field": "closed_at",
+      "type": "ISO timestamp",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED, >= opened_at and equal to closing event time; otherwise empty."
+    },
+    {
+      "field": "version",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Nonnegative integer; incremented once per committed live update; optimistic concurrency token."
+    }
+  ],
+  "LiveAuditEvent": [
+    {
+      "field": "event_id",
+      "type": "integer",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "primary key",
+      "foreign_key": null,
+      "validation": "SQLite AUTOINCREMENT integer; immutable and unique across dataset namespaces."
+    },
+    {
+      "field": "dataset_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "LiveDataset.dataset_id",
+      "validation": "SHA-256 of alerts, initial investigations/events and roles; isolates each baseline dataset."
+    },
+    {
+      "field": "investigation_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "LiveCaseRecord (dataset_id, investigation_id)",
+      "validation": "Existing Investigation key; INV-2026- plus six digits."
+    },
+    {
+      "field": "action",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "CREATE",
+        "ASSIGN",
+        "TRANSITION"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "CREATE, ASSIGN or TRANSITION. ASSIGN preserves state while changing owner."
+    },
+    {
+      "field": "from_status",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": [
+        "",
+        "OPEN",
+        "IN_PROGRESS"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Empty only on creation; otherwise preceding state in the event history. Live ASSIGN events preserve the status."
+    },
+    {
+      "field": "to_status",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": [
+        "OPEN",
+        "IN_PROGRESS",
+        "CLOSED"
+      ],
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "OPEN, IN_PROGRESS or CLOSED; valid generated transitions are creation -> OPEN -> IN_PROGRESS -> CLOSED. Live ASSIGN events preserve the status."
+    },
+    {
+      "field": "event_ts",
+      "type": "ISO timestamp",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Valid chronological ISO-8601 timestamp; final transition must agree with case snapshot."
+    },
+    {
+      "field": "outcome",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Required for CLOSED; empty while active. Live enum: CONFIRMED_LOSS, PROCESS_ERROR, LEGITIMATE_VARIANCE, INCONCLUSIVE."
+    },
+    {
+      "field": "owner_employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "Required EmployeeRole FK with MANAGER role."
+    },
+    {
+      "field": "actor_employee_role_id",
+      "type": "string",
+      "requirement": "required",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": "EmployeeRole.employee_role_id",
+      "validation": "EmployeeRole FK with MANAGER role; demo acting identity, not authenticated login."
+    },
+    {
+      "field": "note",
+      "type": "string",
+      "requirement": "conditional (see rule)",
+      "allowed_values": "See validation rule",
+      "units": "n/a",
+      "uniqueness": "not unique",
+      "foreign_key": null,
+      "validation": "Free text; nonempty investigation notes required when closing."
+    }
+  ]
+}

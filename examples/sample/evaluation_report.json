@@ -1,0 +1,90 @@
+{
+  "evaluation_unit": "record (movement or count)",
+  "population": 10500,
+  "label_policy": "All unplanted records are synthetic negatives; explicit benign damage and returns are also audited.",
+  "overall": {
+    "tp": 49,
+    "fp": 0,
+    "fn": 0,
+    "tn": 10451,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "false_positive_rate": 0.0
+  },
+  "per_issue": {
+    "COUNT_BEFORE_MOVEMENT": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10499,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "MISSING_ADJUSTMENT_REASON": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10490,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "REPEATED_ADJUSTMENTS": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10491,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "TRANSFER_DOUBLE_COUNT_RISK": {
+      "tp": 18,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10482,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "UNEXPLAINED_COUNT_SHORTAGE": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10496,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "WRONG_STORE_REFERENCE": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "tn": 10493,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    }
+  },
+  "benign": {
+    "LEGITIMATE_DAMAGE": {
+      "records": 661,
+      "false_positives": 0,
+      "false_positive_rate": 0.0
+    },
+    "LEGITIMATE_RETURN": {
+      "records": 411,
+      "false_positives": 0,
+      "false_positive_rate": 0.0
+    }
+  },
+  "limitations": "Synthetic rule-based benchmark; does not establish real-world detection accuracy or theft."
+}

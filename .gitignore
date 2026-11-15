@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/generated/*.csv
+data/generated/*.json
+
+data/test_run/
+
+data/workflow.sqlite3*
+artifacts/
+
+# Local review state (including sample/alternate datasets)
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm

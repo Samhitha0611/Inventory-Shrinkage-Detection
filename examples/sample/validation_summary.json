@@ -1,0 +1,370 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "error_output_limit": 100,
+  "expected_exception_counts": {
+    "WRONG_STORE_REFERENCE": 7,
+    "TRANSFER_DOUBLE_COUNT_RISK": 18,
+    "MISSING_ADJUSTMENT_REASON": 10,
+    "COUNT_BEFORE_MOVEMENT": 1
+  },
+  "missing_expected_exceptions": 0,
+  "checks": [
+    {
+      "check": "Store_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "SKU_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "EmployeeRole_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "Shift_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "Promotion_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "Return_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "ShrinkageAlert_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "Investigation_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "InvestigationEvent_primary_key",
+      "violations": 0
+    },
+    {
+      "check": "opening_composite_key",
+      "violations": 0
+    },
+    {
+      "check": "Shift_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Promotion_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "StoreSKUOpeningBalance_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "StoreSKUOpeningBalance_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_employee_role_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_shift_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_promotion_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_related_movement_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_employee_role_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_reference_movement_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Return_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Return_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Return_movement_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Return_original_sale_movement_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "ShrinkageAlert_store_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "ShrinkageAlert_sku_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "ShrinkageAlert_movement_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "ShrinkageAlert_count_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Investigation_alert_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "Investigation_owner_employee_role_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "InvestigationEvent_investigation_id_FK",
+      "violations": 0
+    },
+    {
+      "check": "StoreSKUOpeningBalance_opening_qty_integer",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_quantity_integer",
+      "violations": 0
+    },
+    {
+      "check": "InventoryMovement_signed_qty_integer",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_expected_qty_integer",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_counted_qty_integer",
+      "violations": 0
+    },
+    {
+      "check": "CycleCount_variance_qty_integer",
+      "violations": 0
+    },
+    {
+      "check": "Return_quantity_integer",
+      "violations": 0
+    },
+    {
+      "check": "count_authorization",
+      "violations": 0
+    },
+    {
+      "check": "movement_promotion",
+      "violations": 0
+    },
+    {
+      "check": "event_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "investigation_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "alert_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "return_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "movement_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "count_timestamp",
+      "violations": 0
+    },
+    {
+      "check": "shift_interval",
+      "violations": 0
+    },
+    {
+      "check": "movement_enum",
+      "violations": 0
+    },
+    {
+      "check": "movement_quantity_sign",
+      "violations": 9
+    },
+    {
+      "check": "missing_adjustment_reason",
+      "violations": 10
+    },
+    {
+      "check": "wrong_store",
+      "violations": 7
+    },
+    {
+      "check": "shift_time",
+      "violations": 0
+    },
+    {
+      "check": "authorization_STORE_OPERATOR",
+      "violations": 0
+    },
+    {
+      "check": "authorization_MANAGER",
+      "violations": 0
+    },
+    {
+      "check": "authorization_ANALYST",
+      "violations": 0
+    },
+    {
+      "check": "authorization_WAREHOUSE_OPERATOR",
+      "violations": 0
+    },
+    {
+      "check": "role_enum",
+      "violations": 0
+    },
+    {
+      "check": "opening_qty",
+      "violations": 0
+    },
+    {
+      "check": "movement_opening_pair",
+      "violations": 0
+    },
+    {
+      "check": "negative_running_stock",
+      "violations": 0
+    },
+    {
+      "check": "count_arithmetic",
+      "violations": 0
+    },
+    {
+      "check": "count_as_of_reconciliation",
+      "violations": 0
+    },
+    {
+      "check": "count_reference_pair",
+      "violations": 0
+    },
+    {
+      "check": "count_reference_time",
+      "violations": 1
+    },
+    {
+      "check": "transfer_pair",
+      "violations": 18
+    },
+    {
+      "check": "return_link",
+      "violations": 0
+    },
+    {
+      "check": "return_exceeds_sale",
+      "violations": 0
+    },
+    {
+      "check": "return_coverage",
+      "violations": 0
+    },
+    {
+      "check": "promotion",
+      "violations": 0
+    },
+    {
+      "check": "sku_money",
+      "violations": 0
+    },
+    {
+      "check": "store_enum",
+      "violations": 0
+    },
+    {
+      "check": "alert_values",
+      "violations": 0
+    },
+    {
+      "check": "alert_movement_pair",
+      "violations": 0
+    },
+    {
+      "check": "alert_count_pair",
+      "violations": 0
+    },
+    {
+      "check": "investigation_alert_unique",
+      "violations": 0
+    },
+    {
+      "check": "investigation_lifecycle",
+      "violations": 0
+    },
+    {
+      "check": "investigation_owner",
+      "violations": 0
+    },
+    {
+      "check": "investigation_history",
+      "violations": 0
+    },
+    {
+      "check": "event_transition",
+      "violations": 0
+    }
+  ],
+  "row_counts": {
+    "Store": 10,
+    "SKU": 100,
+    "EmployeeRole": 5,
+    "Shift": 70,
+    "Promotion": 5,
+    "StoreSKUOpeningBalance": 1000,
+    "InventoryMovement": 10000,
+    "CycleCount": 500,
+    "Return": 411,
+    "ShrinkageAlert": 49,
+    "Investigation": 49,
+    "InvestigationEvent": 49
+  },
+  "ground_truth_rows": 1121,
+  "policy": "PASS requires no unexpected violations; exact planted record/rule exceptions must be observed. Count expected quantities reconcile at count timestamps."
+}

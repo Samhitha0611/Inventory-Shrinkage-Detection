@@ -1,0 +1,3 @@
+# Preserve generated CSV bytes so sample checksums survive cloning on any OS.
+*.csv -text
+*.png binary
